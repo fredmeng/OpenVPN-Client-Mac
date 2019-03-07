@@ -14,8 +14,6 @@
 
 <p>Download Tunnelblick, a free software for OpenVPN on OS X and macOS on <a href="https://tunnelblick.net/" target="_blank">https://tunnelblick.net/</a> and install it.</p>
 
-<p>[[MORE]]</p>
-
 <p><br>Step 3: Create a config file for the OpenVPN client (Tunnelblick) i.e. macbook.ovpn. Following is an example.</p>
 
 <pre>
