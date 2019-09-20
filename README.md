@@ -6,8 +6,8 @@
 
 <pre>
 /etc/easy-rsa/easyrsa3/pki/ca.crt
-/etc/easy-rsa/easyrsa3/pki/issued/macbook.crt
-/etc/easy-rsa/easyrsa3/pki/private/macbook.key
+/etc/easy-rsa/easyrsa3/pki/issued/mac.crt
+/etc/easy-rsa/easyrsa3/pki/private/mac.key
 </pre>
 
 <p><br>Step 2: Install <b>Tunnelblick</b></p>
@@ -27,12 +27,30 @@ client
 # On most systems, the VPN will not function
 # unless you partially or fully disable
 # the firewall for the TUN/TAP interface.
+;dev tap
 dev tun
+
+# Windows needs the TAP-Windows adapter name
+# from the Network Connections panel
+# if you have more than one.  On XP SP2,
+# you may need to disable the firewall
+# for the TAP adapter.
+;dev-node MyTap
+
+# Are we connecting to a TCP or
+# UDP server?  Use the same setting as
+# on the server.
+proto udp4
 
 # The hostname/IP and port of the server.
 # You can have multiple remote entries
 # to load balance between the servers.
-remote ec2-1-2-3-4.x.compute.amazonaws.com 1194 udp
+remote ec2-1-2-3-4.x.compute.amazonaws.com 1194
+
+# Choose a random host from the remote
+# list for load-balancing.  Otherwise
+# try hosts in the order specified.
+;remote-random
 
 # Keep trying indefinitely to resolve the
 # host name of the OpenVPN server.  Very useful
@@ -44,9 +62,27 @@ resolv-retry infinite
 # a specific local port number.
 nobind
 
+# Downgrade privileges after initialization (non-Windows only)
+user nobody
+group nobody
+
 # Try to preserve some state across restarts.
 persist-key
 persist-tun
+
+# If you are connecting through an
+# HTTP proxy to reach the actual OpenVPN
+# server, put the proxy server/IP and
+# port number here.  See the man page
+# if your proxy server requires
+# authentication.
+;http-proxy-retry # retry on connection failures
+;http-proxy [proxy server] [proxy port #]
+
+# Wireless networks often produce a lot
+# of duplicate packets.  Set this flag
+# to silence duplicate packet warnings.
+mute-replay-warnings
 
 # SSL/TLS parms.
 # See the server config file for more
@@ -55,21 +91,35 @@ persist-tun
 # for each client.  A single ca
 # file can be used for all clients.
 ca ca.crt
-cert macbook.crt
-key macbook.key
+cert mac.crt
+key mac.key
+
+# Verify server certificate by checking
+# that the certicate has the nsCertType
+# field set to "server".  This is an
+# important precaution to protect against
+# a potential attack discussed here:
+#  http://openvpn.net/howto.html#mitm
+#
+# To use this feature, you will need to generate
+# your server certificates with the nsCertType
+# field set to "server".  The build-key-server
+# script in the easy-rsa folder will do this.
+;ns-cert-type server
+
+# If a tls-auth key is used on the server
+# then every client must also have the key.
+;tls-auth ta.key 1
 
 # Select a cryptographic cipher.
 # If the cipher option is used on the server
 # then you must also specify it here.
-# Note that v2.4 client/server will automatically
-# negotiate AES-256-GCM in TLS mode.
-# See also the ncp-cipher option in the manpage
 cipher AES-256-CBC
 
 # Enable compression on the VPN link.
 # Don't enable this unless it is also
 # enabled in the server config file.
-;comp-lzo
+;compress
 
 # Set log file verbosity.
 verb 3
@@ -78,7 +128,7 @@ verb 3
 ;mute 20
 </pre>
 
-<p><br>Step 4: Put ca.crt, macbook.crt, macbook.key and macbook.ovpn in the same folder, i.e. ~/ovpn</p>
+<p><br>Step 4: Put ca.crt, mac.crt, mac.key and mac.ovpn in the same folder, i.e. ~/ovpn</p>
 
 <p><br>Step 5: Import the configuration (i.e. macbook.ovpn) to your Tunnelblick</p>
 
