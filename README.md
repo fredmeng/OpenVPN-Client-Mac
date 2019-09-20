@@ -130,7 +130,7 @@ verb 3
 
 <p><br>Step 4: Put ca.crt, mac.crt, mac.key and mac.ovpn in the same folder, i.e. ~/ovpn</p>
 
-<p><br>Step 5: Import the configuration (i.e. macbook.ovpn) to your Tunnelblick</p>
+<p><br>Step 5: Import the configuration (i.e. mac.ovpn) to your Tunnelblick</p>
 
 <p><br>Step 6: Enjoy safer internet on your Mac!</p>
 
