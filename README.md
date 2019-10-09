@@ -10,11 +10,11 @@
 /etc/easy-rsa/easyrsa3/pki/private/mac.key
 </pre>
 
-<p><br>Step 2: Install <b>Tunnelblick</b></p>
+<p><br>Step 2: Install <b>OpenVPN Connect for Mac OS</b></p>
 
-<p>Download Tunnelblick, a free software for OpenVPN on OS X and macOS on <a href="https://tunnelblick.net/" target="_blank">https://tunnelblick.net/</a> and install it.</p>
+<p>Download <b>OpenVPN Connect for Mac OS</b> on <a href="https://openvpn.net/client-connect-vpn-for-mac-os/" target="_blank">https://openvpn.net/client-connect-vpn-for-mac-os/</a> and install it.</p>
 
-<p><br>Step 3: Create a config file for the OpenVPN client (Tunnelblick) i.e. macbook.ovpn. Following is an example.</p>
+<p><br>Step 3: Create a config file for the OpenVPN client (e.g. OpenVPN Connect for Mac OS) i.e. mac.ovpn. Following is an example.</p>
 
 <pre>
 # Specify that we are a client and that we
@@ -130,7 +130,7 @@ verb 3
 
 <p><br>Step 4: Put ca.crt, mac.crt, mac.key and mac.ovpn in the same folder, i.e. ~/ovpn</p>
 
-<p><br>Step 5: Import the configuration (i.e. mac.ovpn) to your Tunnelblick</p>
+<p><br>Step 5: Import the configuration (i.e. mac.ovpn) to your OpenVPN Connect for Mac OS</p>
 
 <p><br>Step 6: Enjoy safer internet on your Mac!</p>
 
