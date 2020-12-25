@@ -63,8 +63,8 @@ resolv-retry infinite
 nobind
 
 # Downgrade privileges after initialization (non-Windows only)
-user nobody
-group nobody
+#user nobody
+#group nobody
 
 # Try to preserve some state across restarts.
 persist-key
